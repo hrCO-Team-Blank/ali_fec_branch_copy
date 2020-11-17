@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 
-const ProductCardInfo = ({ product }) => {
+const RelatedInfo = ({ product }) => {
 
   const [info, setInfo] = useState([]);
 
@@ -12,8 +12,6 @@ const ProductCardInfo = ({ product }) => {
       .then(res => setInfo([res.data]))
       .catch(err => console.log(err))
   }, []);
-
-  console.log('Info', info)
 
   return (
     <div>
@@ -33,4 +31,4 @@ const ProductCardInfo = ({ product }) => {
   );
 }
 
-export default ProductCardInfo;
+export default RelatedInfo;

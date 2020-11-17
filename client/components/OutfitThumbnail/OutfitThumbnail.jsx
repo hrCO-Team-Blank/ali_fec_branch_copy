@@ -18,19 +18,10 @@ const ProductCardThumbnail = ({ product }) => {
       .catch(err => console.log(err))
   }, []);
 
-<<<<<<< HEAD
   return (
     <div>
       {styles.length && <StyledThumbnail src={styles[0]['results'][0]['photos'][0]['thumbnail_url']} />}
-=======
-  // console.log('Styles', styles[results])
-  // [results][photos]
-
-  return (
-    <div>
-        {styles.length && <img src={styles[0]['results'][0]['photos'][0]['thumbnail_url']} />}
->>>>>>> main
-      </div>
+    </div>
   );
 }
 

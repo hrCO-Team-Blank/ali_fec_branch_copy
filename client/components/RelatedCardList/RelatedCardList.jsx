@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import ProductCard from './ProductCard.jsx'
+import RelatedCard from '../RelatedCard/RelatedCard.jsx'
 import axios from 'axios';
 import styled from 'styled-components'
 
@@ -7,10 +7,9 @@ import styled from 'styled-components'
 const StyledCardList = styled.div`
   display: flex;
   flexDirection: row;
-  background-color: yellow;
 `;
 
-const ProductCardList = ({ relatedData }) => {
+const RelatedCardList = ({ relatedData }) => {
 
   return (
     < div >
@@ -18,7 +17,7 @@ const ProductCardList = ({ relatedData }) => {
         {
           relatedData.length && relatedData.map(product =>
             // passing on the id of each related item
-            <ProductCard product={product} />
+            <RelatedCard product={product} />
           )
         }
       </StyledCardList>
@@ -26,4 +25,4 @@ const ProductCardList = ({ relatedData }) => {
   );
 }
 
-export default ProductCardList;
+export default RelatedCardList;
