@@ -1,0 +1,40 @@
+{
+  "name": "fec",
+  "version": "1.0.0",
+  "description": "Front End Capstone: Related Items & Outfit Creation",
+  "main": "index.js",
+  "scripts": {
+    "start": "cd server/ && node server.js",
+    "build": "webpack --watch",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hrCO-Team-Blank/fec.git"
+  },
+  "author": "Ali Rangwala",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hrCO-Team-Blank/fec/issues"
+  },
+  "homepage": "https://github.com/hrCO-Team-Blank/fec#readme",
+  "dependencies": {
+    "axios": "^0.21.0",
+    "express": "^4.17.1",
+    "jest": "^26.6.3",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-router": "^5.2.0",
+    "styled-components": "^5.2.1"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.12.1",
+    "@babel/core": "^7.12.3",
+    "@babel/polyfill": "^7.12.1",
+    "@babel/preset-env": "^7.12.1",
+    "@babel/preset-react": "^7.12.5",
+    "babel-loader": "^8.2.1",
+    "webpack": "^5.4.0",
+    "webpack-cli": "^4.2.0"
+  }
+}
