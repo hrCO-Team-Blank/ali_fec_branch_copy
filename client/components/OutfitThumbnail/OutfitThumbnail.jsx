@@ -8,12 +8,12 @@ width: 100%;
 height: 250px;
 `;
 
-const ProductCardThumbnail = ({ product }) => {
+const OutfitThumbnail = ({ outfit }) => {
   const [styles, setStyles] = useState([]);
 
   // componentDidMount rendering first style thumbnail
   useEffect(() => {
-    axios.get(`http://52.26.193.201:3000/products/${product}/styles`)
+    axios.get(`http://52.26.193.201:3000/products/${outfit.product_id}/styles`)
       .then(res => setStyles([res.data]))
       .catch(err => console.log(err))
   }, []);
@@ -25,4 +25,4 @@ const ProductCardThumbnail = ({ product }) => {
   );
 }
 
-export default ProductCardThumbnail;
+export default OutfitThumbnail;

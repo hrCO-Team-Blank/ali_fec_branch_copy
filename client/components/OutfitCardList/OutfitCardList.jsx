@@ -9,12 +9,12 @@ const StyledCardList = styled.div`
   flexDirection: row;
 `;
 
-const OutfitCardList = ({ outfitData }) => {
+const OutfitCardList = ({ outfitData, mainProduct, addOutfit }) => {
 
   return (
     < div >
       <StyledCardList>
-        <AddToOutfit />
+        <AddToOutfit mainProduct={mainProduct} addOutfit={addOutfit} />
         {outfitData.length && outfitData.map(outfit =>
           <OutfitCard outfit={outfit} />
         )}

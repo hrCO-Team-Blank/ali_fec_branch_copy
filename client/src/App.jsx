@@ -10,11 +10,12 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      mainProduct: 2,
-      userSession: 1,
+      mainProduct: 1,
+      userSession: 3,
       relatedData: [],
-      outfitData: []
+      outfitData: [],
     }
+    this.addOutfit = this.addOutfit.bind(this)
   }
 
   componentDidMount() {
@@ -31,20 +32,42 @@ class App extends Component {
       })
   }
 
+  addOutfit(event) {
+    let addOutfitBody = {
+      user_session: this.state.userSession,
+      product_id: this.state.mainProduct
+    }
+    axios.post(`http://52.26.193.201:3000/cart/`, addOutfitBody)
+      .then(res => {
+        console.log(res);
+      });
+
+    axios.get(`http://52.26.193.201:3000/cart/${this.state.userSession}`)
+      .then(res => {
+        const outfits = res.data;
+        this.setState({ outfitData: outfits })
+      })
+  }
+
   render() {
     return (
       <div>
         <div>
-          RELATED PRODUCTS
-        <RelatedCardList
+          <h1>RELATED PRODUCTS</h1>
+          <RelatedCardList
             //passing array of indices
             relatedData={this.state.relatedData}
+            mainProduct={this.state.mainProduct}
           />
         </div>
 
         <div>
-          YOUR OUTFIT
-          <OutfitCardList outfitData={this.state.outfitData} />
+          <h1>YOUR OUTFIT</h1>
+          <OutfitCardList
+            addOutfit={this.addOutfit}
+            outfitData={this.state.outfitData}
+            mainProduct={this.state.mainProduct}
+          />
         </div>
       </div>
     );

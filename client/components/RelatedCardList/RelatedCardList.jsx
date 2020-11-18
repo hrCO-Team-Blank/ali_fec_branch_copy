@@ -2,26 +2,28 @@ import React, { useState, useEffect } from 'react';
 import RelatedCard from '../RelatedCard/RelatedCard.jsx'
 import axios from 'axios';
 import styled from 'styled-components'
-
+// import Flickity from 'react-flickity-component'
+// import "../../dist/flickity.css";
 
 const StyledCardList = styled.div`
   display: flex;
   flexDirection: row;
 `;
 
-const RelatedCardList = ({ relatedData }) => {
+const RelatedCardList = ({ relatedData, mainProduct }) => {
+
 
   return (
-    < div >
-      <StyledCardList>
-        {
-          relatedData.length && relatedData.map(product =>
-            // passing on the id of each related item
-            <RelatedCard product={product} />
-          )
-        }
-      </StyledCardList>
-    </div >
+    <StyledCardList>
+      {/* <Flickity> */}
+      {
+        relatedData.length && relatedData.map(product =>
+          // passing on the id of each related item
+          <RelatedCard product={product} mainProduct={mainProduct} />
+        )
+      }
+      {/* </Flickity> */}
+    </StyledCardList>
   );
 }
 

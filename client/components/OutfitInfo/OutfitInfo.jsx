@@ -2,18 +2,16 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 
-const OutfitInfo = ({ product }) => {
+const OutfitInfo = ({ outfit }) => {
 
   const [info, setInfo] = useState([]);
 
   // componentDidMount rendering product info
   useEffect(() => {
-    axios.get(`http://52.26.193.201:3000/products/${product}`)
+    axios.get(`http://52.26.193.201:3000/products/${outfit.product_id}`)
       .then(res => setInfo([res.data]))
       .catch(err => console.log(err))
   }, []);
-
-  console.log('Info', info)
 
   return (
     <div>
