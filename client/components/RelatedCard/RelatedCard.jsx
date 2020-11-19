@@ -4,7 +4,9 @@ import RelatedInfo from '../RelatedInfo/RelatedInfo.jsx'
 import Comparison from '../Comparison/Comparison.jsx'
 import styled from 'styled-components'
 import Modal from 'react-modal'
-Modal.setAppElement('#root')
+import { FaStar } from 'react-icons/fa'
+
+Modal.setAppElement('#RelatedAndOutfit')
 
 const StyledCard = styled.div`
   position: relative;
@@ -17,7 +19,7 @@ const StyledCard = styled.div`
 const StyledStarButton = styled.button`
   position: absolute;
   top: 5%;
-  left: 70%;
+  left: 80%;
   // transform: translate(-50%, -50%);
   // -ms-transform: translate(-50%, -50%);
   border: 1px;
@@ -26,16 +28,24 @@ const StyledStarButton = styled.button`
 
 const RelatedCard = ({ product, mainProduct }) => {
 
-  const [modalIsOpen, setModalIsOpen] = useState(false)
 
+  const [modalIsOpen, setModalIsOpen] = useState(false)
+  const [count, setCount] = useState(0)
+
+  function testing() {
+    setModalIsOpen(false);
+  }
+  //../../dist/images/star.png
+  //onRequestClose={() => setModalIsOpen(false)}
+  //onClick={() => setModalIsOpen(false)}
   return (
     <div>
       <StyledCard >
         <StyledStarButton onClick={() => setModalIsOpen(true)}>
-          <Modal isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)}>
-            <Comparison mainProduct={mainProduct} product={product} />
+          <Modal isOpen={modalIsOpen} onRequestClose={(e) => { e.stopPropagation(); setModalIsOpen(false); }} shouldCloseOnOverlayClick={true}>
+            <Comparison mainProduct={mainProduct} product={product} setModalIsOpen={testing} setCount={setCount} count={count} />
           </Modal>
-          <img src="../../dist/images/star.png" alt="star" />
+          <FaStar />
         </StyledStarButton>
         <RelatedThumbnail product={product} />
         <RelatedInfo product={product} />

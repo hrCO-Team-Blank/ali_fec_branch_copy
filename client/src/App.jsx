@@ -6,16 +6,18 @@ import OutfitCardList from '../components/OutfitCardList/OutfitCardList.jsx'
 import { BrowserRouter as Router, Link, Route } from 'react-router'
 import axios from 'axios';
 
-class App extends Component {
+class RelatedAndOutfitApp extends Component {
   constructor(props) {
     super(props);
     this.state = {
       mainProduct: 1,
-      userSession: 3,
+      userSession: 60,
       relatedData: [],
       outfitData: [],
     }
     this.addOutfit = this.addOutfit.bind(this)
+    this.gettingOutfit = this.gettingOutfit.bind(this)
+
   }
 
   componentDidMount() {
@@ -32,7 +34,7 @@ class App extends Component {
       })
   }
 
-  addOutfit(event) {
+  gettingOutfit() {
     let addOutfitBody = {
       user_session: this.state.userSession,
       product_id: this.state.mainProduct
@@ -45,8 +47,31 @@ class App extends Component {
     axios.get(`http://52.26.193.201:3000/cart/${this.state.userSession}`)
       .then(res => {
         const outfits = res.data;
-        this.setState({ outfitData: outfits })
+        this.setState(state => ({ outfitData: outfits }))
       })
+  }
+
+  //Conditional to prevent duplicate outfits being added to state
+
+  // if (this.state.outfitData.length && this.state.outfitData['product_id'].includes(this.state.mainProduct) && this.state.outfitData['user_session'].includes(this.state.userSession)) {
+  //   console.log('Outfit exists in this User_ID')
+  // } else {
+  addOutfit() {
+    console.log(this.state.outfitData)
+
+    if (this.state.outfitData.length === 0) {
+      return this.gettingOutfit()
+      // fix to look within objects in array
+    }
+    for (let i = 0; i < this.state.outfitData.length; i++) {
+      console.log('In For', this.state.outfitData)
+      if (this.state.outfitData[i]['product_id'] === this.state.mainProduct && this.state.outfitData[i]['user_session'] === this.state.userSession) {
+        console.log('Outfit exists in this User_ID')
+        break;
+      }
+    }
+    console.log('Worked')
+    return this.gettingOutfit()
   }
 
   render() {
@@ -74,4 +99,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default RelatedAndOutfitApp;

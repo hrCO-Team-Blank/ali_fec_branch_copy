@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 
-const Comparison = ({ mainProduct, product }) => {
+const Comparison = ({ mainProduct, product, setModalIsOpen, count, setCount }) => {
 
   const [main, setMain] = useState([]);
   const [related, setRelated] = useState([]);
@@ -18,23 +18,24 @@ const Comparison = ({ mainProduct, product }) => {
   }, []);
 
   // Render Features
-  let size = 0;
-  let featureArr = [];
-  related[0]['features'].length >= related[0]['features'].length ? size = related[0]['features'].length : size = main[0]['features'].length
-  for (let i = 0; i < size; i++) {
-    featureArr.push(
-      <tr>
-        <td>{main[0]['features'][i]['value']}</td>
-        <td>{main[0]['features'][i]['feature'] || { main[0]['features'][i]['feature'] }}</td>
-        <td>{related[0]['features'][i]['value']}</td>
-      </tr>
-    )
-  }
+  // let size = 0;
+  // let featureArr = [];
+  // related[0]['features'].length >= related[0]['features'].length ? size = related[0]['features'].length : size = main[0]['features'].length
+  // for (let i = 0; i < size; i++) {
+  //   featureArr.push(
+  //     <tr>
+  //       <td>{main[0]['features'][i]['value']}</td>
+  //       <td>{main[0]['features'][i]['feature'] || { main[0]['features'][i]['feature'] }}</td>
+  //       <td>{related[0]['features'][i]['value']}</td>
+  //     </tr>
+  //   )
+  // }
 
   return (
     <div>
-      { console.log(main)}
-      { console.log(related)}
+      <button onClick={(e) => { e.stopPropagation(); setModalIsOpen(false); }}> X </button>
+      {/* { console.log(main)}
+      { console.log(related)} */}
       {related.length &&
         <table >
           <tr>
@@ -62,7 +63,7 @@ const Comparison = ({ mainProduct, product }) => {
             <td>Price</td>
             <td>{related[0]['default_price']}</td>
           </tr>
-          {featureArr}
+          {/* // {featureArr} */}
         </table>}
     </div>
   );
