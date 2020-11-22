@@ -24,6 +24,15 @@ const StyledStarButton = styled.button`
   // -ms-transform: translate(-50%, -50%);
   border: 1px;
   cursor: pointer;
+`
+const StyledStarImage = styled.img`
+  position: absolute;
+  height: 20px;
+  width: 20px;
+  top: 5%;
+  left: 80%;
+  border: black 1px;
+  cursor: pointer;
 `;
 
 const RelatedCard = ({ product, mainProduct }) => {
@@ -45,7 +54,7 @@ const RelatedCard = ({ product, mainProduct }) => {
           <Modal isOpen={modalIsOpen} onRequestClose={(e) => { e.stopPropagation(); setModalIsOpen(false); }} shouldCloseOnOverlayClick={true}>
             <Comparison mainProduct={mainProduct} product={product} setModalIsOpen={testing} setCount={setCount} count={count} />
           </Modal>
-          <FaStar />
+          <StyledStarImage src='./images/star.png' />
         </StyledStarButton>
         <RelatedThumbnail product={product} />
         <RelatedInfo product={product} />

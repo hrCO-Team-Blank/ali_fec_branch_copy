@@ -17,9 +17,9 @@ const RelatedCardList = ({ relatedData, mainProduct }) => {
     <StyledCardList>
       {/* <Flickity> */}
       {
-        relatedData.length && relatedData.map(product =>
+        relatedData.length && relatedData.map((product, index) =>
           // passing on the id of each related item
-          <RelatedCard product={product} mainProduct={mainProduct} />
+          <RelatedCard product={product} mainProduct={mainProduct} key={index} />
         )
       }
       {/* </Flickity> */}

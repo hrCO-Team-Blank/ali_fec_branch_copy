@@ -9,14 +9,14 @@ const StyledCardList = styled.div`
   flexDirection: row;
 `;
 
-const OutfitCardList = ({ outfitData, mainProduct, addOutfit }) => {
+const OutfitCardList = ({ outfitData, mainProduct, clickAddOutfit, clickDeleteOutfit }) => {
 
   return (
     < div >
       <StyledCardList>
-        <AddToOutfit mainProduct={mainProduct} addOutfit={addOutfit} />
-        {outfitData.length && outfitData.map(outfit =>
-          <OutfitCard outfit={outfit} />
+        <AddToOutfit mainProduct={mainProduct} clickAddOutfit={clickAddOutfit} />
+        {outfitData.length && outfitData.map((outfit, index) =>
+          <OutfitCard outfit={outfit} key={index} clickDeleteOutfit={clickDeleteOutfit} />
         )}
       </StyledCardList>
     </div >

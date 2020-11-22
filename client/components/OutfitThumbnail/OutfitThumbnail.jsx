@@ -4,8 +4,9 @@ import styled from 'styled-components'
 
 const StyledThumbnail = styled.img`
 object-fit: cover;
-width: 100%;
-height: 250px;
+width: auto;
+height: 100%;
+background: url(./images/placeholder.png)
 `;
 
 const OutfitThumbnail = ({ outfit }) => {
@@ -16,8 +17,9 @@ const OutfitThumbnail = ({ outfit }) => {
     axios.get(`http://52.26.193.201:3000/products/${outfit.product_id}/styles`)
       .then(res => setStyles([res.data]))
       .catch(err => console.log(err))
-  }, []);
+  }, [outfit]);
 
+  //{styles[0]['results'][0]['photos'][0]['thumbnail_url']}
   return (
     <div>
       {styles.length && <StyledThumbnail src={styles[0]['results'][0]['photos'][0]['thumbnail_url']} />}

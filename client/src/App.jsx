@@ -10,14 +10,14 @@ class RelatedAndOutfitApp extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      mainProduct: 1,
-      userSession: 60,
+      mainProduct: 5,
+      userSession: 67,
       relatedData: [],
       outfitData: [],
     }
-    this.addOutfit = this.addOutfit.bind(this)
+    this.clickAddOutfit = this.clickAddOutfit.bind(this)
     this.gettingOutfit = this.gettingOutfit.bind(this)
-
+    this.clickDeleteOutfit = this.clickDeleteOutfit.bind(this)
   }
 
   componentDidMount() {
@@ -33,45 +33,46 @@ class RelatedAndOutfitApp extends Component {
         this.setState({ outfitData: outfits })
       })
   }
-
+  // when you delete and add same outfit, duplicates arise
   gettingOutfit() {
     let addOutfitBody = {
       user_session: this.state.userSession,
       product_id: this.state.mainProduct
     }
+    // for (let i = 0; i < this.state.outfitData.length; i++) {
+    //   if (this.state.outfitData[i].product_id === this.state.mainProduct && this.state.outfitData[i].user_session === this.state.userSession) {
+    // console.log('Outfit exists in this User_ID')
+    // return;
+    // }
     axios.post(`http://52.26.193.201:3000/cart/`, addOutfitBody)
       .then(res => {
         console.log(res);
+        axios.get(`http://52.26.193.201:3000/cart/${this.state.userSession}`)
+          .then(res => {
+            var outfits = res.data;
+            this.setState(({ outfitData: outfits }))
+          })
       });
-
-    axios.get(`http://52.26.193.201:3000/cart/${this.state.userSession}`)
-      .then(res => {
-        const outfits = res.data;
-        this.setState(state => ({ outfitData: outfits }))
-      })
   }
 
-  //Conditional to prevent duplicate outfits being added to state
-
-  // if (this.state.outfitData.length && this.state.outfitData['product_id'].includes(this.state.mainProduct) && this.state.outfitData['user_session'].includes(this.state.userSession)) {
-  //   console.log('Outfit exists in this User_ID')
-  // } else {
-  addOutfit() {
-    console.log(this.state.outfitData)
-
-    if (this.state.outfitData.length === 0) {
-      return this.gettingOutfit()
-      // fix to look within objects in array
-    }
+  clickAddOutfit() {
+    //Conditional to prevent duplicate outfits being added to state
     for (let i = 0; i < this.state.outfitData.length; i++) {
-      console.log('In For', this.state.outfitData)
-      if (this.state.outfitData[i]['product_id'] === this.state.mainProduct && this.state.outfitData[i]['user_session'] === this.state.userSession) {
+      if (this.state.outfitData[i].product_id === this.state.mainProduct && this.state.outfitData[i].user_session === this.state.userSession) {
         console.log('Outfit exists in this User_ID')
-        break;
+        return;
       }
     }
-    console.log('Worked')
     return this.gettingOutfit()
+  }
+
+  clickDeleteOutfit(id) {
+
+    // const newOutfitData = this.state.outfitData.filter(item => item.product_id !== id);
+    // console.log(newOutfitData)
+    this.setState(state => ({
+      outfitData: state.outfitData.filter(item => item.product_id !== id)
+    }))
   }
 
   render() {
@@ -89,9 +90,10 @@ class RelatedAndOutfitApp extends Component {
         <div>
           <h1>YOUR OUTFIT</h1>
           <OutfitCardList
-            addOutfit={this.addOutfit}
+            clickAddOutfit={this.clickAddOutfit}
             outfitData={this.state.outfitData}
             mainProduct={this.state.mainProduct}
+            clickDeleteOutfit={this.clickDeleteOutfit}
           />
         </div>
       </div>
