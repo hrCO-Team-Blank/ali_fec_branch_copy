@@ -26,7 +26,7 @@ const OutfitCard = ({ outfit, clickDeleteOutfit }) => {
   return (
     <div>
       <StyledCard >
-        <StyledExitButton onClick={() => { console.log('outfit selected', outfit); clickDeleteOutfit(outfit.product_id) }}>
+        <StyledExitButton onClick={() => { clickDeleteOutfit(outfit.product_id) }}>
           X
         </StyledExitButton>
         <OutfitThumbnail outfit={outfit} />

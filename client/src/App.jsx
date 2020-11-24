@@ -10,7 +10,7 @@ class RelatedAndOutfitApp extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      mainProduct: 5,
+      mainProduct: 1,
       userSession: 67,
       relatedData: [],
       outfitData: [],

@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import StarRating from '../StarRating/StarRating.jsx'
+
 import axios from 'axios';
 
 
@@ -22,10 +24,10 @@ const OutfitInfo = ({ outfit }) => {
         {info.length && info[0]['name']}
       </div>
       <div>
-        $ {info.length && info[0]['default_price']}
+        {info.length && info[0]['default_price']}
       </div>
       <div>
-        STAR RATING
+        <StarRating outfit={outfit.product_id} />
       </div>
     </div>
   );
