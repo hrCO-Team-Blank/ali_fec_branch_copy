@@ -11,11 +11,9 @@ const StyledCard = styled.div`
 
 const AddToOutfit = () => {
   return (
-    <div>
       <StyledCard >
         Add to Outfit
       </StyledCard>
-    </div>
   );
 }
 

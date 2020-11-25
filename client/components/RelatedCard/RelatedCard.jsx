@@ -8,17 +8,16 @@ const StyledCard = styled.div`
   padding: 0;
   border: 1px solid black;
   background-color: yellow;
+  height: 290px;
 
 `;
 
 const RelatedCard = ({ product }) => {
   return (
-    <div>
-      <StyledCard >
-        <RelatedThumbnail product={product} />
-        <RelatedInfo product={product} />
-      </StyledCard>
-    </div>
+    <StyledCard >
+      <RelatedThumbnail product={product} />
+      <RelatedInfo product={product} />
+    </StyledCard>
   );
 }
 

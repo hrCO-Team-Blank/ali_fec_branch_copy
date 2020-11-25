@@ -3,9 +3,9 @@ import axios from 'axios';
 import styled from 'styled-components'
 
 const StyledThumbnail = styled.img`
-object-fit: cover;
-width: 100%;
-height: 250px;
+
+  width: 100%;
+  height: 250px;
 `;
 
 const RelatedThumbnail = ({ product }) => {

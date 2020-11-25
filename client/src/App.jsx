@@ -1,10 +1,19 @@
 import React, { Component } from 'react';
+import styled from 'styled-components';
 import RelatedCard from '../components/RelatedCard/RelatedCard.jsx'
 import RelatedCardList from '../components/RelatedCardList/RelatedCardList.jsx'
 import OutfitCardList from '../components/OutfitCardList/OutfitCardList.jsx'
-
 import { BrowserRouter as Router, Link, Route } from 'react-router'
 import axios from 'axios';
+
+const Container = styled.section`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 700px;
+  margin: 10px 0px;
+`;
 
 class App extends Component {
   constructor(props) {
@@ -33,20 +42,20 @@ class App extends Component {
 
   render() {
     return (
-      <div>
-        <div>
-          RELATED PRODUCTS
+      <Container>
+        <article>
+          <h3>RELATED PRODUCTS</h3>
+        </article>
         <RelatedCardList
             //passing array of indices
             relatedData={this.state.relatedData}
           />
-        </div>
+        <article>
+          <h3>YOUR OUTFIT</h3>
+        </article>
+        <OutfitCardList outfitData={this.state.outfitData} />
 
-        <div>
-          YOUR OUTFIT
-          <OutfitCardList outfitData={this.state.outfitData} />
-        </div>
-      </div>
+      </Container>
     );
   }
 }

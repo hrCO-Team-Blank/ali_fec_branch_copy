@@ -12,14 +12,12 @@ const StyledCardList = styled.div`
 const OutfitCardList = ({ outfitData }) => {
 
   return (
-    < div >
       <StyledCardList>
         <AddToOutfit />
         {outfitData.length && outfitData.map(outfit =>
           <OutfitCard outfit={outfit} />
         )}
       </StyledCardList>
-    </div >
   );
 }
 
