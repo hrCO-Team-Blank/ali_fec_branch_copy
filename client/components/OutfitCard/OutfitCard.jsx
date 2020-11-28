@@ -5,9 +5,10 @@ import styled from 'styled-components'
 
 const StyledCard = styled.div`
   position: relative;
-  height: auto;
+  height: 350px;
+  width: 250px
   margin: 5px;
-  padding: 0;
+  padding: 5px;
   border: 1px solid black;
 `;
 

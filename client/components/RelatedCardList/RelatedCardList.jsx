@@ -6,8 +6,11 @@ import styled from 'styled-components'
 // import "../../dist/flickity.css";
 
 const StyledCardList = styled.div`
-  display: flex;
-  flexDirection: row;
+display: flex;
+flex-wrap: nowrap;
+overflow-x: auto;
+-webkit-overflow-scrolling: touch;
+-ms-overflow-style: -ms-autohiding-scrollbar;
 `;
 
 const RelatedCardList = ({ relatedData, mainProduct }) => {

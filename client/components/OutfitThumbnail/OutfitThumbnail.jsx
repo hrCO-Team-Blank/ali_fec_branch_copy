@@ -4,10 +4,11 @@ import styled from 'styled-components'
 
 const StyledThumbnail = styled.img`
 object-fit: cover;
-width: auto;
-height: 100%;
+width: 100%;
+height: 250px;
 background: url(./images/placeholder.png)
 `;
+
 
 const OutfitThumbnail = ({ outfit }) => {
   const [styles, setStyles] = useState([]);
