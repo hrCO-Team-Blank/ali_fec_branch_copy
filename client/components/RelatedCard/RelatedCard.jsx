@@ -9,20 +9,17 @@ import { FaStar } from 'react-icons/fa'
 Modal.setAppElement('#RelatedAndOutfit')
 
 const StyledCard = styled.div`
-  position: relative;
-  height: 350px;
-  margin: 5px;
-  padding: 5px;
-  border: 1px solid black;
-  flex: 0 0 auto;
-  flex-basis: 50%;
-
+height: 350px;
+width: 250px;
+margin: 5px;
+padding: 5px;
+border: 1px solid black;
 `;
 
 const StyledStarButton = styled.button`
   position: absolute;
   top: 5%;
-  left: 80%;
+  left: 75%;
   // transform: translate(-50%, -50%);
   // -ms-transform: translate(-50%, -50%);
   border: 1px;
@@ -42,20 +39,13 @@ const RelatedCard = ({ product, mainProduct }) => {
 
 
   const [modalIsOpen, setModalIsOpen] = useState(false)
-  const [count, setCount] = useState(0)
 
-  function testing() {
-    setModalIsOpen(false);
-  }
-  //../../dist/images/star.png
-  //onRequestClose={() => setModalIsOpen(false)}
-  //onClick={() => setModalIsOpen(false)}
   return (
     <div>
       <StyledCard >
         <StyledStarButton onClick={() => setModalIsOpen(true)}>
           <Modal isOpen={modalIsOpen} onRequestClose={(e) => { e.stopPropagation(); setModalIsOpen(false); }} shouldCloseOnOverlayClick={true}>
-            <Comparison mainProduct={mainProduct} product={product} setModalIsOpen={testing} setCount={setCount} count={count} />
+            <Comparison mainProduct={mainProduct} product={product} setModalIsOpen={setModalIsOpen} />
           </Modal>
           <StyledStarImage src='./images/star.png' />
         </StyledStarButton>

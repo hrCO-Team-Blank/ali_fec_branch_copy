@@ -10,10 +10,11 @@ class RelatedAndOutfitApp extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      mainProduct: 6,
-      userSession: 67,
+      mainProduct: 1,
+      userSession: 121,
       relatedData: [],
       outfitData: [],
+      outfitDataHolding: []
     }
     this.clickAddOutfit = this.clickAddOutfit.bind(this)
     this.gettingOutfit = this.gettingOutfit.bind(this)
@@ -30,7 +31,13 @@ class RelatedAndOutfitApp extends Component {
     axios.get(`http://52.26.193.201:3000/cart/${this.state.userSession}`)
       .then(res => {
         const outfits = res.data;
-        this.setState({ outfitData: outfits })
+        let dedupedOutfits = [];
+        outfits.forEach(outfit => {
+          if (!dedupedOutfits.includes(outfit.product_id)) {
+            dedupedOutfits.push(outfit.product_id)
+          }
+        })
+        this.setState(({ outfitData: dedupedOutfits }))
       })
   }
   // when you delete and add same outfit, duplicates arise
@@ -39,39 +46,35 @@ class RelatedAndOutfitApp extends Component {
       user_session: this.state.userSession,
       product_id: this.state.mainProduct
     }
-    // for (let i = 0; i < this.state.outfitData.length; i++) {
-    //   if (this.state.outfitData[i].product_id === this.state.mainProduct && this.state.outfitData[i].user_session === this.state.userSession) {
-    // console.log('Outfit exists in this User_ID')
-    // return;
-    // }
     axios.post(`http://52.26.193.201:3000/cart/`, addOutfitBody)
       .then(res => {
         console.log(res);
         axios.get(`http://52.26.193.201:3000/cart/${this.state.userSession}`)
           .then(res => {
             var outfits = res.data;
-            this.setState(({ outfitData: outfits }))
+            let dedupedOutfits = [];
+            outfits.forEach(outfit => {
+              if (!dedupedOutfits.includes(outfit.product_id)) {
+                dedupedOutfits.push(outfit.product_id)
+              }
+            })
+            this.setState(({ outfitData: dedupedOutfits }))
           })
       });
   }
 
   clickAddOutfit() {
     //Conditional to prevent duplicate outfits being added to state
-    for (let i = 0; i < this.state.outfitData.length; i++) {
-      if (this.state.outfitData[i].product_id === this.state.mainProduct && this.state.outfitData[i].user_session === this.state.userSession) {
-        console.log('Outfit exists in this User_ID')
-        return;
-      }
+    if (this.state.outfitData.includes(this.state.mainProduct)) {
+      console.log('Outfit exists in this User_ID')
+      return;
     }
     return this.gettingOutfit()
   }
 
   clickDeleteOutfit(id) {
-
-    // const newOutfitData = this.state.outfitData.filter(item => item.product_id !== id);
-    // console.log(newOutfitData)
     this.setState(state => ({
-      outfitData: state.outfitData.filter(item => item.product_id !== id)
+      outfitData: state.outfitData.filter(item => item !== id)
     }))
   }
 
@@ -88,7 +91,7 @@ class RelatedAndOutfitApp extends Component {
         </div>
 
         <div>
-          <h1>YOUR OUTFIT</h1>
+          <h2>YOUR OUTFIT</h2>
           <OutfitCardList
             clickAddOutfit={this.clickAddOutfit}
             outfitData={this.state.outfitData}

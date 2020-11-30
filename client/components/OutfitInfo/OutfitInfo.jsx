@@ -10,7 +10,7 @@ const OutfitInfo = ({ outfit }) => {
 
   // componentDidMount rendering product info
   useEffect(() => {
-    axios.get(`http://52.26.193.201:3000/products/${outfit.product_id}`)
+    axios.get(`http://52.26.193.201:3000/products/${outfit}`)
       .then(res => setInfo([res.data]))
       .catch(err => console.log(err))
   }, []);
@@ -24,10 +24,10 @@ const OutfitInfo = ({ outfit }) => {
         {info.length && info[0]['name']}
       </div>
       <div>
-        {info.length && info[0]['default_price']}
+        $ {info.length && info[0]['default_price']}
       </div>
       <div>
-        <StarRating outfit={outfit.product_id} />
+        <StarRating outfit={outfit} />
       </div>
     </div>
   );

@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import axios from 'axios'
 
 const StyledCard = styled.div`
-  position: relative;
+align: center
   height: 350px;
   width: 250px
   margin: 5px;
@@ -12,12 +12,8 @@ const StyledCard = styled.div`
 `;
 
 const StyledPlusSign = styled.img`
-position: relative;
-height: auto;
-width: 100%;
-margin: 5px;
-padding: 0;
-border: 1px solid black;
+height: 350px;
+width: 250px
 `;
 
 const AddToOutfit = ({ mainProduct, clickAddOutfit }) => {
@@ -25,9 +21,8 @@ const AddToOutfit = ({ mainProduct, clickAddOutfit }) => {
   return (
     <div>
       <StyledCard onClick={() => clickAddOutfit()}>
-        Add to Outfit
-        <div>+</div>
-        {/* <StyledPlusSign src='./images/plus.jpg' /> */}
+        <div>Add to Outfit</div>
+        <StyledPlusSign src='./images/plus.jpg' />
       </StyledCard>
     </div >
   );

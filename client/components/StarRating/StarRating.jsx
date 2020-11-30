@@ -20,7 +20,6 @@ const StarRating = ({ outfit }) => {
       sum += review.results[i].rating
     }
     starReview = sum / review.results.length
-    console.log(starReview)
   }
 
   // Default to 5 star ratings if no ratings
