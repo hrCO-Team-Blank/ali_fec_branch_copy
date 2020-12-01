@@ -1,61 +1,107 @@
 import React, { Component } from 'react';
-import ProductCard from '../components/ProductCard.jsx'
-import ProductCardList from '../components/ProductCardList.jsx'
+import RelatedCard from '../components/RelatedCard/RelatedCard.jsx'
+import RelatedCardList from '../components/RelatedCardList/RelatedCardList.jsx'
+import OutfitCardList from '../components/OutfitCardList/OutfitCardList.jsx'
+
 import { BrowserRouter as Router, Link, Route } from 'react-router'
 import axios from 'axios';
 
-class App extends Component {
+class RelatedAndOutfitApp extends Component {
   constructor(props) {
     super(props);
     this.state = {
       mainProduct: 1,
-      productData: [],
+      userSession: 121,
       relatedData: [],
-      productStyles: []
+      outfitData: [],
+      outfitDataHolding: []
     }
+    this.clickAddOutfit = this.clickAddOutfit.bind(this)
+    this.gettingOutfit = this.gettingOutfit.bind(this)
+    this.clickDeleteOutfit = this.clickDeleteOutfit.bind(this)
   }
 
   componentDidMount() {
-    // axios.get('http://52.26.193.201:3000/products/list')
-    //   .then(res => {
-    //     const data = res.data;
-    //     this.setState({ productData: data })
-    //   })
-
     axios.get(`http://52.26.193.201:3000/products/${this.state.mainProduct}/related`)
       .then(res => {
-        const data = res.data;
-        this.setState({ relatedData: data })
+        const relatedProducts = res.data;
+        this.setState({ relatedData: relatedProducts })
       })
 
-    // let stylesArr = [];
-    // for (let id of this.state.relatedData) {
-    //   axios.get(`http://52.26.193.201:3000/products/${id}/styles`)
-    //     .then(res => {
-    //       this.setState({ productStyles: [...stylesArr, res] })
-    //     })
-    // }
+    axios.get(`http://52.26.193.201:3000/cart/${this.state.userSession}`)
+      .then(res => {
+        const outfits = res.data;
+        let dedupedOutfits = [];
+        outfits.forEach(outfit => {
+          if (!dedupedOutfits.includes(outfit.product_id)) {
+            dedupedOutfits.push(outfit.product_id)
+          }
+        })
+        this.setState(({ outfitData: dedupedOutfits }))
+      })
+  }
+  // when you delete and add same outfit, duplicates arise
+  gettingOutfit() {
+    let addOutfitBody = {
+      user_session: this.state.userSession,
+      product_id: this.state.mainProduct
+    }
+    axios.post(`http://52.26.193.201:3000/cart/`, addOutfitBody)
+      .then(res => {
+        console.log(res);
+        axios.get(`http://52.26.193.201:3000/cart/${this.state.userSession}`)
+          .then(res => {
+            var outfits = res.data;
+            let dedupedOutfits = [];
+            outfits.forEach(outfit => {
+              if (!dedupedOutfits.includes(outfit.product_id)) {
+                dedupedOutfits.push(outfit.product_id)
+              }
+            })
+            this.setState(({ outfitData: dedupedOutfits }))
+          })
+      });
   }
 
-  //   axios.get(`http://52.26.193.201:3000/products/${this.state.mainProduct}/related`)
-  //   .then(res => {
-  //     const data = res.data;
-  //     this.setState({ relatedData: data })
-  //     console.log(this.state.relatedData)
-  //   })
-  // }
+  clickAddOutfit() {
+    //Conditional to prevent duplicate outfits being added to state
+    if (this.state.outfitData.includes(this.state.mainProduct)) {
+      console.log('Outfit exists in this User_ID')
+      return;
+    }
+    return this.gettingOutfit()
+  }
+
+  clickDeleteOutfit(id) {
+    this.setState(state => ({
+      outfitData: state.outfitData.filter(item => item !== id)
+    }))
+  }
+
   render() {
     return (
       <div>
-        RELATED PRODUCTS
-        <ProductCardList
-          className="product-card"
-          relatedData={this.state.relatedData}
-        />
+        <div>
+          <h1>RELATED PRODUCTS</h1>
+          <RelatedCardList
+            //passing array of indices
+            relatedData={this.state.relatedData}
+            mainProduct={this.state.mainProduct}
+          />
+        </div>
 
+        <div>
+          <h1>YOUR OUTFIT</h1>
+          <OutfitCardList
+            clickAddOutfit={this.clickAddOutfit}
+            outfitData={this.state.outfitData}
+            mainProduct={this.state.mainProduct}
+            clickDeleteOutfit={this.clickDeleteOutfit}
+          />
+        </div>
       </div>
     );
   }
 }
 
-export default App;
+export default RelatedAndOutfitApp;
