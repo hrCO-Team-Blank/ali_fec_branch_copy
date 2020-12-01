@@ -6,7 +6,7 @@ import styled from 'styled-components'
 import Modal from 'react-modal'
 import { FaStar } from 'react-icons/fa'
 
-Modal.setAppElement('#RelatedAndOutfit')
+//Modal.setAppElement('#RelatedAndOutfit')
 
 const StyledCard = styled.div`
 height: 350px;
