@@ -91,7 +91,7 @@ class RelatedAndOutfitApp extends Component {
         </div>
 
         <div>
-          <h2>YOUR OUTFIT</h2>
+          <h1>YOUR OUTFIT</h1>
           <OutfitCardList
             clickAddOutfit={this.clickAddOutfit}
             outfitData={this.state.outfitData}
